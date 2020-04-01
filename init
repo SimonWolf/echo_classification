@@ -1,0 +1,101 @@
+#!/bin/bash
+##File created by init.py
+
+echo " _______   ______       __  ______   ______   _______ "
+echo "|__   __| |  ____|     / / |  ____| |  ____| |__   __|"
+echo "   | |    | |__       / /  | |__    | |__       | |   "
+echo "   | |    |  __|     / /   |  __|   |  __|      | |   "
+echo "   | |    | |       / /    | |____  | |____     | |   "
+echo "   |_|    |_|      /_/     |______| |______|    |_|   "
+echo ""
+echo "This init script generates python specific git-Hooks,"
+echo "setups virtualenv for the current project and installs"
+echo "all required pip modules."
+echo "When everything is ready the newest version of "
+echo "jupyterlab will be started."
+echo " _____________________________________________________"
+echo ""
+
+DONE="\033[42m\033[37m √ \033[0m"
+INIT="\033[44m\033[37m INIT: \033[0m"
+PROCESS="\033[43m\033[37m ... \033[0m"
+HOOK="\033[44m\033[37m HOOK: \033[0m"
+echo -n -e "$INIT Editor:"
+git config --global core.editor "nano"
+echo -e " nano $DONE"
+echo -n -e "$INIT Hooks:"
+
+if [ -f ".git/hooks/pre-commit" ]; then
+  echo -e "$DONE"
+else
+  echo -e "$PROCESS"
+  echo "#!/bin/bash" >> ".git/hooks/pre-commit"
+  echo   "# File created by init" >> ".git/hooks/pre-commit"
+  #echo "python3 -m venv .env" >> ".git/hooks/pre-commit"
+  echo ".env/Scripts/python -m pip  freeze > requirements.txt" >> ".git/hooks/pre-commit"
+  echo "git add requirements.txt" >> ".git/hooks/pre-commit"
+  echo "echo -e '$HOOK requirements.txt updated.'" >> ".git/hooks/pre-commit"
+  echo -e "$INIT Hooks: $DONE"
+
+fi
+
+
+
+
+if [ -d ".env" ]; then
+  echo -e "$INIT Environment: $DONE"
+else
+
+  virtualenv --python=/Library/Frameworks/Python.framework/Versions/3.6/bin/python3 .env
+  echo -e "$INIT Environment: new $DONE"
+  echo  -n -e "$INIT requirements.txt:"
+  if [ -d ".env/Scripts/" ]; then
+    .env/Scripts/python -m pip  freeze > requirements.txt
+  fi
+  if [ -d ".env/bin/" ]; then
+    .env/bin/python -m pip  freeze > requirements.txt
+  fi
+  echo -e"$DONE"
+fi
+
+
+
+echo -n -e "$INIT Platform:"
+
+if [ -d ".env/Scripts/" ]; then
+  echo -e " Windows $DONE"
+  echo -e "$INIT Updating pip & jupyterlab: $PROCESS"
+  .env/Scripts/python -m pip install --upgrade pip  | grep -v 'already satisfied'
+  .env/Scripts/python -m pip install --upgrade jupyter  | grep -v 'already satisfied'
+  .env/Scripts/python -m pip install --upgrade jupyterlab  | grep -v 'already satisfied'
+  echo -e "$INIT Updating pip & jupyterlab: $DONE"
+  echo -e "$INIT Installing requirements: $PROCESS"
+  .env/Scripts/python -m pip install --requirement requirements.txt | grep -v 'already satisfied'
+  echo -e "$INIT Installing requirements: $DONE"
+
+
+  source .env/Scripts/activate
+  echo -e "$INIT Virtual environment activated: $DONE"
+  echo -e "$INIT Starting jupyter lab:"
+  .env/Scripts/python -m jupyter lab
+
+
+fi
+if [ -d ".env/bin/" ]; then
+  echo -e " Linux/OSX $DONE"
+  echo -e "$INIT Updating pip & jupyterlab: $PROCESS"
+  .env/bin/python -m pip install --upgrade pip  | grep -v 'already satisfied'
+  .env/bin/python -m pip install --upgrade jupyter  | grep -v 'already satisfied'
+  .env/bin/python -m pip install --upgrade jupyterlab  | grep -v 'already satisfied'
+  echo -e "$INIT Updating pip & jupyterlab: $DONE"
+  echo -e "$INIT Installing requirements: $PROCESS"
+  .env/bin/python -m pip install --requirement requirements.txt | grep -v 'already satisfied'
+  echo -e "$INIT Installing requirements: $DONE"
+
+
+  source .env/bin/activate
+  echo -e "$INIT Virtual environment activated: $DONE"
+  echo -e "$INIT Starting jupyter lab:"
+  .env/bin/python -m jupyter lab
+
+fi
