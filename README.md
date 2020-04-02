@@ -2,14 +2,12 @@
 Ähnlich der Echoortung bei Tieren soll in diesem Projekt ein kurzes Tonsignal gesendet werden.
 Mit einem Mikrofon wird das Signal und dessen Echo aufgezeichnet.
 ![audiosignal](/images/audiosignal.png)
-Die Audiosignale soll dann in Spektrogramme umgewandelt werden, welche anschließend als Trainingsdaten
-für verschiedene KI-Modelle dienen sollen.
+Die Audiosignale sollen dann in Spektrogramme umgewandelt werden, welche anschließend als Trainingsdaten
+für verschiedene KI-Modelle verwendet werden können.
 ![spektrogramm](/images/spektrogramm.png)
 
 
-Im Notbook **01_Trainingsdaten.ipynb** ist der Quellcode und die Beschreibung,
-wie ich solche Ultraschallsignale erzeuge und aufzeichen. Außerdem ist dort das Skript zu finden,
-welches automatisiert Trainingsdaten erzeugt:
+Im Notbook **01_Trainingsdaten.ipynb** ist der Quellcode und die Beschreibung, für das Erzeugen und Aufzeichnen der Ultraschallsignale. Außerdem ist dort das Skript zu finden, welches automatisiert Trainingsdaten erzeugt:
   - Ton abspielen
   - Echo aufzeichnen
   - Echo in Spektrogramm umwandeln
