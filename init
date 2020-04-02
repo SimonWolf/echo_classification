@@ -32,7 +32,7 @@ else
   echo "#!/bin/bash" >> ".git/hooks/pre-commit"
   echo   "# File created by init" >> ".git/hooks/pre-commit"
   #echo "python3 -m venv .env" >> ".git/hooks/pre-commit"
-  echo ".env/Scripts/python -m pip  freeze > requirements.txt" >> ".git/hooks/pre-commit"
+  echo ".env/bin/python -m pip  freeze > requirements.txt" >> ".git/hooks/pre-commit"
   echo "git add requirements.txt" >> ".git/hooks/pre-commit"
   echo "echo -e '$HOOK requirements.txt updated.'" >> ".git/hooks/pre-commit"
   echo -e "$INIT Hooks: $DONE"
