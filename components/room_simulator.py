@@ -13,8 +13,8 @@ class room_simulator():
             "min_room_dim":[ 1,1,2],
             "wall_materials": [["wooden_door","ceramic_tiles","hard_surface","hard_surface"],
                                ["wooden_door","hard_surface","hard_surface","hard_surface"],
-                               ["wooden_door","glass_window","ceramic_tiles","ceramic_tiles"],
-                               ["wooden_door","glass_window","ceramic_tiles","hard_surface"],
+                               ["wooden_door","glass_window","carpet_thin","ceramic_tiles"],
+                               ["wooden_door","carpet_thin","ceramic_tiles","hard_surface"],
                                ["wooden_door","glass_window","hard_surface","hard_surface"],
                                ["hard_surface","hard_surface","hard_surface","hard_surface"],],
             "floor_material": ["ceramic_tiles","hard_surface"],
@@ -43,6 +43,21 @@ class room_simulator():
             "floor_material": ["ceramic_tiles","hard_surface"],
             "ceiling_material": ["hard_surface","smooth_brickwork_flush_pointing"]
         },
+        ,
+        {
+            "roomtype": "office",
+            "max_room_dim": [4,4,3],
+            "min_room_dim":[ 3,2,2],
+            "wall_materials": [["wooden_door","ceramic_tiles","hard_surface","hard_surface"],
+                               ["wooden_door","hard_surface","hard_surface","hard_surface"],
+                               ["ceramic_tiles","glass_window","ceramic_tiles","ceramic_tiles"],
+                               ["wooden_door","glass_window","ceramic_tiles","hard_surface"],
+                               ["wooden_door","glass_window","ceramic_tiles","hard_surface"],
+                               ["hard_surface","hard_surface","hard_surface","hard_surface"],],
+            "floor_material": ["ceramic_tiles","hard_surface"],
+            "ceiling_material": ["hard_surface","smooth_brickwork_flush_pointing"]
+        },
+        
     ]
     rooms=[]
     
